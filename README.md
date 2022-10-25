@@ -31,6 +31,9 @@ Thus, issued loans information and customer lists are stored separately.</br>
 Business logic is implemented in the ***Service*** module.</br>
 Implemented ***AOP*** for exception handling and logging.
 
+![loanproject database schema](images/loanproject_database_schema.png "loanproject database schema")</br>
+Loan Project database schema from MySQL Workbench
+
 ***
 
 Dependencies and libraries are used in the project:
