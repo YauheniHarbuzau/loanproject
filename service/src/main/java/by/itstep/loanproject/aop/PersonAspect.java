@@ -31,14 +31,14 @@ public class PersonAspect {
     @Before("execution(* by.itstep.loanproject.service.PersonService.findAll(..))")
     public void beforeFindAllMethod(JoinPoint joinPoint) {
         Logger logger = getLogger(joinPoint.getTarget().getClass());
-        logger.info("Получение всех клиентов");
+        logger.info("Get all persons");
     }
 
     @Before("execution(* by.itstep.loanproject.service.PersonService.findById(..))")
     public void beforeFindByIdMethod(JoinPoint joinPoint) {
         Logger logger = getLogger(joinPoint.getTarget().getClass());
         Long id = IdForAspect.getId(joinPoint, "findById");
-        logger.info("Получение клиента по ID: {}", id);
+        logger.info("Get person by ID: {}", id);
         if (!isIdCorrect(id)) {
             logger.error("ID is not correct or ID is not found");
             throw new IdIsNotCorrectException();
@@ -49,7 +49,7 @@ public class PersonAspect {
     public void beforeSaveMethod(JoinPoint joinPoint) {
         Logger logger = getLogger(joinPoint.getTarget().getClass());
         PersonDto personDto = getPersonDto(joinPoint, "save");
-        logger.info("Сохранение клиента: {} {}", personDto.getName(), personDto.getLastName());
+        logger.info("Save person: {}", personDto);
         if (!isPersonDtoCorrect(personDto)) {
             logger.error("Entity is not correct");
             throw new EntityIsNotCorrectException();
@@ -60,7 +60,7 @@ public class PersonAspect {
     public void beforeDeleteByIdMethod(JoinPoint joinPoint) {
         Logger logger = getLogger(joinPoint.getTarget().getClass());
         Long id = IdForAspect.getId(joinPoint, "deleteById");
-        logger.info("Удаление клиента по ID: {}", id);
+        logger.info("Delete person by ID: {}", id);
         if (!isIdCorrect(id)) {
             logger.error("ID is not correct or ID is not found");
             throw new IdIsNotCorrectException();
@@ -82,7 +82,7 @@ public class PersonAspect {
         return personDto;
     }
 
-    private boolean isPersonDtoCorrect(PersonDto personDto) {
+    protected static boolean isPersonDtoCorrect(PersonDto personDto) {
         return personDto.getName().length() >= 1 &&
                 personDto.getLastName().length() >= 1 &&
                 personDto.getBirthDate() != null &&

@@ -22,7 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/itstep")
-@Tag(name = "Менеджер клиентов", description = "Для поиска, сохранения и удаления клиентов")
+@Tag(name = "Person manager", description = "Search, save and delete persons")
 public class PersonController {
 
     private PersonService personService;
@@ -32,25 +32,25 @@ public class PersonController {
     }
 
     @GetMapping("/person/findAll")
-    @Operation(summary = "Все клиенты", description = "Получение всех клиентов")
+    @Operation(summary = "Get persons", description = "Get all persons")
     List<PersonDtoWithId> findAll() {
         return personService.findAll();
     }
 
     @GetMapping("/person/findById/{id}")
-    @Operation(summary = "Один клиента", description = "Получение одного клиента по ID")
+    @Operation(summary = "Get person", description = "Get person by ID")
     PersonDtoWithId findById(@PathVariable("id") Long id) {
         return personService.findById(id);
     }
 
     @PostMapping("/person/save")
-    @Operation(summary = "Сохранение", description = "Сохранение одного клиента")
+    @Operation(summary = "Save", description = "Save person")
     void save(@RequestBody PersonDto personDto) {
         personService.save(personDto);
     }
 
     @DeleteMapping("/person/deleteById/{id}")
-    @Operation(summary = "Удаление", description = "Удаление одного клиента по ID")
+    @Operation(summary = "Delete", description = "Delete person by ID")
     void deleteById(@PathVariable("id") Long id) {
         personService.deleteById(id);
     }

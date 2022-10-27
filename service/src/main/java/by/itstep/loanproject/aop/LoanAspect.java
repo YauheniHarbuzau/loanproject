@@ -31,14 +31,14 @@ public class LoanAspect {
     @Before("execution(* by.itstep.loanproject.service.LoanService.findAll(..))")
     public void beforeFindAllMethod(JoinPoint joinPoint) {
         Logger logger = getLogger(joinPoint.getTarget().getClass());
-        logger.info("Получение всех кредитов");
+        logger.info("Get all loans");
     }
 
     @Before("execution(* by.itstep.loanproject.service.LoanService.findById(..))")
     public void beforeFindByIdMethod(JoinPoint joinPoint) {
         Logger logger = getLogger(joinPoint.getTarget().getClass());
         Long id = IdForAspect.getId(joinPoint, "findById");
-        logger.info("Получение кредита по ID: {}", id);
+        logger.info("Get loan by ID: {}", id);
         if (!isIdCorrect(id)) {
             logger.error("ID is not correct or ID is not found");
             throw new IdIsNotCorrectException();
@@ -49,7 +49,7 @@ public class LoanAspect {
     public void beforeSaveMethod(JoinPoint joinPoint) {
         Logger logger = getLogger(joinPoint.getTarget().getClass());
         LoanDto loanDto = getLoanDto(joinPoint, "save");
-        logger.info("Сохранение кредита с наименованием: {}", loanDto.getName());
+        logger.info("Save loan: {}", loanDto);
         if (!isLoanDtoCorrect(loanDto)) {
             logger.error("Entity is not correct");
             throw new EntityIsNotCorrectException();
@@ -60,7 +60,7 @@ public class LoanAspect {
     public void beforeDeleteByIdMethod(JoinPoint joinPoint) {
         Logger logger = getLogger(joinPoint.getTarget().getClass());
         Long id = IdForAspect.getId(joinPoint, "deleteById");
-        logger.info("Удаление кредита по ID: {}", id);
+        logger.info("Delete loan by ID: {}", id);
         if (!isIdCorrect(id)) {
             logger.error("ID is not correct or ID is not found");
             throw new IdIsNotCorrectException();
@@ -82,7 +82,7 @@ public class LoanAspect {
         return loanDto;
     }
 
-    private boolean isLoanDtoCorrect(LoanDto loanDto) {
+    protected static boolean isLoanDtoCorrect(LoanDto loanDto) {
         return loanDto.getName().length() >= 1 &&
                 loanDto.getLoanPurpose() != null &&
                 loanDto.getInterestRate() != 0 &&

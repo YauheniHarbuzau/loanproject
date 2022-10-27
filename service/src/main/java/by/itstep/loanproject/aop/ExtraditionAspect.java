@@ -31,14 +31,14 @@ public class ExtraditionAspect {
     @Before("execution(* by.itstep.loanproject.service.ExtraditionService.findAll(..))")
     public void beforeFindAllMethod(JoinPoint joinPoint) {
         Logger logger = getLogger(joinPoint.getTarget().getClass());
-        logger.info("Получение всех кредитных соглашений");
+        logger.info("Get all extraditions");
     }
 
     @Before("execution(* by.itstep.loanproject.service.ExtraditionService.findById(..))")
     public void beforeFindByIdMethod(JoinPoint joinPoint) {
         Logger logger = getLogger(joinPoint.getTarget().getClass());
         Long id = IdForAspect.getId(joinPoint, "findById");
-        logger.info("Получение кредитного соглашения по ID: {}", id);
+        logger.info("Get extradition by ID: {}", id);
         if (!isIdCorrect(id)) {
             logger.error("ID is not correct or ID is not found");
             throw new IdIsNotCorrectException();
@@ -49,12 +49,7 @@ public class ExtraditionAspect {
     public void beforeSaveMethod(JoinPoint joinPoint) {
         Logger logger = getLogger(joinPoint.getTarget().getClass());
         ExtraditionDto extraditionDto = getExtraditionDto(joinPoint, "save");
-        logger.info(
-                "Сохранение кредитного соглашения для клиента: {} {}, кредит: {}",
-                extraditionDto.getPersonDto().getName(),
-                extraditionDto.getPersonDto().getLastName(),
-                extraditionDto.getLoanDto().getName()
-        );
+        logger.info("Save extradition: {}", extraditionDto);
         if (!isExtraditionDtoCorrect(extraditionDto)) {
             logger.error("Entity is not correct");
             throw new EntityIsNotCorrectException();
@@ -64,14 +59,14 @@ public class ExtraditionAspect {
     @Before("execution(* by.itstep.loanproject.service.ExtraditionService.saveWithParam(..))")
     public void beforeSaveWithParamMethod(JoinPoint joinPoint) {
         Logger logger = getLogger(joinPoint.getTarget().getClass());
-        logger.info("Сохранение кредитного соглашения по заданным ID клиента и ID кредита");
+        logger.info("Save extradition by person ID and by loan ID");
     }
 
     @Before("execution(* by.itstep.loanproject.service.ExtraditionService.deleteById(..))")
     public void beforeDeleteByIdMethod(JoinPoint joinPoint) {
         Logger logger = getLogger(joinPoint.getTarget().getClass());
         Long id = IdForAspect.getId(joinPoint, "deleteById");
-        logger.info("Удаление кредитного соглашения по ID: {}", id);
+        logger.info("Delete extradition by ID: {}", id);
         if (!isIdCorrect(id)) {
             logger.error("ID is not correct or ID is not found");
             throw new IdIsNotCorrectException();
@@ -82,10 +77,7 @@ public class ExtraditionAspect {
     public void beforeIsGiveLoan(JoinPoint joinPoint) {
         Logger logger = getLogger(joinPoint.getTarget().getClass());
         Long id = IdForAspect.getId(joinPoint, "isGiveLoan");
-        logger.info(
-                "Проверка больше ли годовой доход клиента суммы кредита по ID кредитного соглашения: {}",
-                id
-        );
+        logger.info("Comparison between person annual income and loan sum by extradition ID: {}", id);
         if (!isIdCorrect(id)) {
             logger.error("ID is not correct or ID is not found");
             throw new IdIsNotCorrectException();
@@ -96,10 +88,7 @@ public class ExtraditionAspect {
     public void beforeGetMonthlyPayment(JoinPoint joinPoint) {
         Logger logger = getLogger(joinPoint.getTarget().getClass());
         Long id = IdForAspect.getId(joinPoint, "getMonthlyPayment");
-        logger.info(
-                "Получение суммы месячного платежа по ID кредитного соглашения: {}",
-                id
-        );
+        logger.info("Get monthly payment by extradition ID: {}", id);
         if (!isIdCorrect(id)) {
             logger.error("ID is not correct or ID is not found");
             throw new IdIsNotCorrectException();
@@ -110,10 +99,7 @@ public class ExtraditionAspect {
     public void beforeGetFullPayment(JoinPoint joinPoint) {
         Logger logger = getLogger(joinPoint.getTarget().getClass());
         Long id = IdForAspect.getId(joinPoint, "getFullPayment");
-        logger.info(
-                "Получение полной суммы платежа по ID кредитного соглашения: {}",
-                id
-        );
+        logger.info("Get full payment by extradition ID: {}", id);
         if (!isIdCorrect(id)) {
             logger.error("ID is not correct or ID is not found");
             throw new IdIsNotCorrectException();
@@ -136,8 +122,8 @@ public class ExtraditionAspect {
     }
 
     private boolean isExtraditionDtoCorrect(ExtraditionDto extraditionDto) {
-        return extraditionDto.getPersonDto() != null &&
-                extraditionDto.getLoanDto() != null &&
+        return PersonAspect.isPersonDtoCorrect(extraditionDto.getPersonDto()) &&
+                LoanAspect.isLoanDtoCorrect(extraditionDto.getLoanDto()) &&
                 extraditionDto.getIssueDate() != null;
     }
 

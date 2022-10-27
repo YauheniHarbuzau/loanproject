@@ -22,7 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/itstep")
-@Tag(name = "Менеджер кредитов", description = "Для поиска, сохранения и удаления кредитов")
+@Tag(name = "Loan manager", description = "Search, save and delete loans")
 public class LoanController {
 
     private LoanService loanService;
@@ -32,25 +32,25 @@ public class LoanController {
     }
 
     @GetMapping("/loan/findAll")
-    @Operation(summary = "Все кредиты", description = "Получение всех кредитов")
+    @Operation(summary = "Get loans", description = "Get all loans")
     List<LoanDtoWithId> findAll() {
         return loanService.findAll();
     }
 
     @GetMapping("/loan/findById/{id}")
-    @Operation(summary = "Один кредит", description = "Получение одного кредита по ID")
+    @Operation(summary = "Get loan", description = "Get loan by ID")
     LoanDtoWithId findById(@PathVariable("id") Long id) {
         return loanService.findById(id);
     }
 
     @PostMapping("/loan/save")
-    @Operation(summary = "Сохранение", description = "Сохранение одного кредита")
+    @Operation(summary = "Save", description = "Save loan")
     void save(@RequestBody LoanDto loanDto) {
         loanService.save(loanDto);
     }
 
     @DeleteMapping("/loan/deleteById/{id}")
-    @Operation(summary = "Удаление", description = "Удаление одного кредита по ID")
+    @Operation(summary = "Delete", description = "Delete loan by ID")
     void deleteById(@PathVariable("id") Long id) {
         loanService.deleteById(id);
     }

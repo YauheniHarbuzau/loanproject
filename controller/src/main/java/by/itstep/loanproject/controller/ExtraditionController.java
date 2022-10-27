@@ -24,10 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/itstep")
-@Tag(
-        name = "Оформление кредитных соглашений",
-        description = "Для оформления кредитных соглашений, поиска и обработки выданных кредитов"
-)
+@Tag(name = "Extradition manager", description = "Search, save and delete extraditions")
 public class ExtraditionController {
 
     private ExtraditionService extraditionService;
@@ -37,49 +34,49 @@ public class ExtraditionController {
     }
 
     @GetMapping("/extradition/findAll")
-    @Operation(summary = "Все кредитные соглашения", description = "Получение всех кредитных соглашений")
+    @Operation(summary = "Get extraditions", description = "Get all extraditions")
     List<ExtraditionDtoWithId> findAll() {
         return extraditionService.findAll();
     }
 
     @GetMapping("/extradition/findById/{id}")
-    @Operation(summary = "Одно кредитное соглашение", description = "Получение одного кредитного соглашения по ID")
+    @Operation(summary = "Get extradition", description = "Get extradition by ID")
     ExtraditionDtoWithId findById(@PathVariable("id") Long id) {
         return extraditionService.findById(id);
     }
 
     @PostMapping("/extradition/save")
-    @Operation(summary = "Сохранение", description = "Сохранение одного кредитного соглашения")
+    @Operation(summary = "Save", description = "Save extradition")
     void save(@RequestBody ExtraditionDto extraditionDto) {
         extraditionService.save(extraditionDto);
     }
 
     @PostMapping("/extradition/saveWithParam")
-    @Operation(summary = "Сохранение", description = "Сохранение одного кредитного соглашения")
+    @Operation(summary = "Save", description = "Save extradition")
     void saveWithParam(@RequestParam Long personId, @RequestParam Long loanId, @RequestParam LocalDate issueDate) {
         extraditionService.saveWithParam(personId, loanId, issueDate);
     }
 
     @DeleteMapping("/extradition/deleteById/{id}")
-    @Operation(summary = "Удаление", description = "Удаление одного кредитного соглашения по ID")
+    @Operation(summary = "Delete", description = "Delete extradition by ID")
     void deleteById(@PathVariable("id") Long id) {
         extraditionService.deleteById(id);
     }
 
     @GetMapping("/extradition/isGiveLoan/{id}")
-    @Operation(summary = "Можно ли выдать кредит", description = "Проверка больше ли годовой доход клиента суммы кредита")
+    @Operation(summary = "If a loan can be given", description = "Comparison between person annual income and loan sum by extradition ID")
     boolean isGiveLoan(@PathVariable("id") Long id) {
         return extraditionService.isGiveLoan(id);
     }
 
     @GetMapping("/extradition/getMonthlyPayment/{id}")
-    @Operation(summary = "Месячный платёж", description = "Получение суммы месячного платежа по ID кредитного соглашения")
+    @Operation(summary = "Get monthly payment", description = "Get monthly payment by extradition ID")
     double getMonthlyPayment(@PathVariable("id") Long id) {
         return extraditionService.getMonthlyPayment(id);
     }
 
     @GetMapping("/extradition/getFullPayment/{id}")
-    @Operation(summary = "Полная сумма платежа", description = "Получение полной суммы платежа по ID кредитного соглашения")
+    @Operation(summary = "Get full payment", description = "Get full payment by extradition ID")
     double getFullPayment(@PathVariable("id") Long id) {
         return extraditionService.getFullPayment(id);
     }

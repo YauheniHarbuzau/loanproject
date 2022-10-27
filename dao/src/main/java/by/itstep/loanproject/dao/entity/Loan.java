@@ -32,7 +32,7 @@ public class Loan {
     private Long id; // ID
 
     @Column(name = "name")
-    private String name; // Название
+    private String name; // Наименование
 
     @Column(name = "purpose")
     @Enumerated(EnumType.STRING)
