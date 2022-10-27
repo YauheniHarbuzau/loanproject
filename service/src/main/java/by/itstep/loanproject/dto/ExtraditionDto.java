@@ -16,7 +16,6 @@ import java.time.LocalDate;
 @Data
 public class ExtraditionDto implements Serializable {
 
-    private Long id;
     private PersonDto personDto;
     private LoanDto loanDto;
     private LocalDate issueDate;

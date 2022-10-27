@@ -2,9 +2,7 @@ package by.itstep.loanproject.service;
 
 import by.itstep.loanproject.dao.entity.Extradition;
 import by.itstep.loanproject.dao.repository.ExtraditionRepository;
-import by.itstep.loanproject.dto.ExtraditionDto;
-import by.itstep.loanproject.dto.LoanDto;
-import by.itstep.loanproject.dto.PersonDto;
+import by.itstep.loanproject.dto.*;
 import by.itstep.loanproject.mapper.ExtraditionMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -39,27 +37,27 @@ class ExtraditionServiceTest {
     @InjectMocks
     private ExtraditionService extraditionService;
 
-    private static PersonDto personDto = new PersonDto();
-    private static LoanDto loanDto = new LoanDto();
+    private static PersonDtoWithId personDtoWithId = new PersonDtoWithId();
+    private static LoanDtoWithId loanDtoWithId = new LoanDtoWithId();
     private static Extradition extradition = new Extradition();
-    private static ExtraditionDto extraditionDto = new ExtraditionDto();
+    private static ExtraditionDtoWithId extraditionDtoWithId = new ExtraditionDtoWithId();
 
     @BeforeEach
     public void setup() {
 
-        personDto.setId(1L);
-        personDto.setYearIncome(2001.0);
+        personDtoWithId.setId(1L);
+        personDtoWithId.setYearIncome(2001.0);
 
-        loanDto.setId(1L);
-        loanDto.setInterestRate(12.0);
-        loanDto.setMaxSum(2000.0);
-        loanDto.setTermInMonths(12);
+        loanDtoWithId.setId(1L);
+        loanDtoWithId.setInterestRate(12.0);
+        loanDtoWithId.setMaxSum(2000.0);
+        loanDtoWithId.setTermInMonths(12);
 
-        extraditionDto.setId(1L);
-        extraditionDto.setPersonDto(personDto);
-        extraditionDto.setLoanDto(loanDto);
+        extraditionDtoWithId.setId(1L);
+        extraditionDtoWithId.setPersonDtoWithId(personDtoWithId);
+        extraditionDtoWithId.setLoanDtoWithId(loanDtoWithId);
 
-        when(extraditionMapper.extraditionToExtraditionDto(extradition)).thenReturn(extraditionDto);
+        when(extraditionMapper.toExtraditionDtoWithId(extradition)).thenReturn(extraditionDtoWithId);
         when(extraditionRepository.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.of(extradition));
     }
 

@@ -1,6 +1,7 @@
 package by.itstep.loanproject.controller;
 
 import by.itstep.loanproject.dto.ExtraditionDto;
+import by.itstep.loanproject.dto.ExtraditionDtoWithId;
 import by.itstep.loanproject.service.ExtraditionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -37,13 +38,13 @@ public class ExtraditionController {
 
     @GetMapping("/extradition/findAll")
     @Operation(summary = "Все кредитные соглашения", description = "Получение всех кредитных соглашений")
-    List<ExtraditionDto> findAll() {
+    List<ExtraditionDtoWithId> findAll() {
         return extraditionService.findAll();
     }
 
     @GetMapping("/extradition/findById/{id}")
     @Operation(summary = "Одно кредитное соглашение", description = "Получение одного кредитного соглашения по ID")
-    ExtraditionDto findById(@PathVariable("id") Long id) {
+    ExtraditionDtoWithId findById(@PathVariable("id") Long id) {
         return extraditionService.findById(id);
     }
 
@@ -55,8 +56,8 @@ public class ExtraditionController {
 
     @PostMapping("/extradition/saveWithParam")
     @Operation(summary = "Сохранение", description = "Сохранение одного кредитного соглашения")
-    void saveWithParam(@RequestParam Long id, @RequestParam Long personId, @RequestParam Long loanId, @RequestParam LocalDate issueDate) {
-        extraditionService.saveWithParam(id, personId, loanId, issueDate);
+    void saveWithParam(@RequestParam Long personId, @RequestParam Long loanId, @RequestParam LocalDate issueDate) {
+        extraditionService.saveWithParam(personId, loanId, issueDate);
     }
 
     @DeleteMapping("/extradition/deleteById/{id}")

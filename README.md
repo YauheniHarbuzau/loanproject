@@ -10,7 +10,7 @@ Project structure:
 
 - DAO module
     - Entity
-    - JPA Repository
+    - Repository
 - Service module
     - DTO
     - Mapper

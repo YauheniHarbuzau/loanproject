@@ -49,7 +49,7 @@ public class PersonAspect {
     public void beforeSaveMethod(JoinPoint joinPoint) {
         Logger logger = getLogger(joinPoint.getTarget().getClass());
         PersonDto personDto = getPersonDto(joinPoint, "save");
-        logger.info("Сохранение клиента с ID: {}", personDto.getId());
+        logger.info("Сохранение клиента: {} {}", personDto.getName(), personDto.getLastName());
         if (!isPersonDtoCorrect(personDto)) {
             logger.error("Entity is not correct");
             throw new EntityIsNotCorrectException();
@@ -83,8 +83,7 @@ public class PersonAspect {
     }
 
     private boolean isPersonDtoCorrect(PersonDto personDto) {
-        return personDto.getId() >= 1 &&
-                personDto.getName().length() >= 1 &&
+        return personDto.getName().length() >= 1 &&
                 personDto.getLastName().length() >= 1 &&
                 personDto.getBirthDate() != null &&
                 personDto.getYearIncome() != 0 &&
@@ -92,7 +91,7 @@ public class PersonAspect {
     }
 
     private boolean isIdCorrect(Long id) {
-        return id >= 1 &&
+        return id != 0 &&
                 personRepository.findAll().stream().anyMatch(person -> person.getId().equals(id));
     }
 }

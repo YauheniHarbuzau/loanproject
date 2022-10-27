@@ -3,6 +3,7 @@ package by.itstep.loanproject.service;
 import by.itstep.loanproject.dao.entity.Person;
 import by.itstep.loanproject.dao.repository.PersonRepository;
 import by.itstep.loanproject.dto.PersonDto;
+import by.itstep.loanproject.dto.PersonDtoWithId;
 import by.itstep.loanproject.mapper.PersonMapper;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Service for the {@link Person} and {@link PersonDto}
+ * Service for the {@link Person}, {@link PersonDto} and {@link PersonDtoWithId}
  *
  * @author Yauheni Harbuzau
  */
@@ -32,9 +33,9 @@ public class PersonService implements AbstractService<Person> {
      *
      * @return List<PersonDto>
      */
-    public List<PersonDto> findAll() {
+    public List<PersonDtoWithId> findAll() {
         return personRepository.findAll().stream()
-                .map(person -> personMapper.personToPersonDto(person))
+                .map(person -> personMapper.toPersonDtoWithId(person))
                 .collect(Collectors.toList());
     }
 
@@ -44,9 +45,9 @@ public class PersonService implements AbstractService<Person> {
      * @param id for Person
      * @return PersonDto
      */
-    public PersonDto findById(Long id) {
+    public PersonDtoWithId findById(Long id) {
         Person person = personRepository.findById(id).orElseThrow();
-        return personMapper.personToPersonDto(person);
+        return personMapper.toPersonDtoWithId(person);
     }
 
     /**
@@ -55,7 +56,7 @@ public class PersonService implements AbstractService<Person> {
      * @param personDto PersonDto
      */
     public void save(PersonDto personDto) {
-        personRepository.save(personMapper.personDtoToPerson(personDto));
+        personRepository.save(personMapper.toPerson(personDto));
     }
 
     /**

@@ -35,7 +35,7 @@ public class Loan {
     private String name; // Название
 
     @Column(name = "purpose")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private LoanPurpose loanPurpose; // Цель кредита
 
     @Column(name = "interest_rate")

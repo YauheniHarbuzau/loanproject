@@ -1,6 +1,7 @@
 package by.itstep.loanproject.controller;
 
 import by.itstep.loanproject.dto.PersonDto;
+import by.itstep.loanproject.dto.PersonDtoWithId;
 import by.itstep.loanproject.service.PersonService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -32,13 +33,13 @@ public class PersonController {
 
     @GetMapping("/person/findAll")
     @Operation(summary = "Все клиенты", description = "Получение всех клиентов")
-    List<PersonDto> findAll() {
+    List<PersonDtoWithId> findAll() {
         return personService.findAll();
     }
 
     @GetMapping("/person/findById/{id}")
     @Operation(summary = "Один клиента", description = "Получение одного клиента по ID")
-    PersonDto findById(@PathVariable("id") Long id) {
+    PersonDtoWithId findById(@PathVariable("id") Long id) {
         return personService.findById(id);
     }
 

@@ -50,9 +50,10 @@ public class ExtraditionAspect {
         Logger logger = getLogger(joinPoint.getTarget().getClass());
         ExtraditionDto extraditionDto = getExtraditionDto(joinPoint, "save");
         logger.info(
-                "Сохранение кредитного соглашения с ID клиента: {}, ID кредита: {}",
-                extraditionDto.getPersonDto().getId(),
-                extraditionDto.getLoanDto().getId()
+                "Сохранение кредитного соглашения для клиента: {} {}, кредит: {}",
+                extraditionDto.getPersonDto().getName(),
+                extraditionDto.getPersonDto().getLastName(),
+                extraditionDto.getLoanDto().getName()
         );
         if (!isExtraditionDtoCorrect(extraditionDto)) {
             logger.error("Entity is not correct");
@@ -135,14 +136,13 @@ public class ExtraditionAspect {
     }
 
     private boolean isExtraditionDtoCorrect(ExtraditionDto extraditionDto) {
-        return extraditionDto.getId() >= 1 &&
-                extraditionDto.getPersonDto() != null &&
+        return extraditionDto.getPersonDto() != null &&
                 extraditionDto.getLoanDto() != null &&
                 extraditionDto.getIssueDate() != null;
     }
 
     private boolean isIdCorrect(Long id) {
-        return id >= 1 &&
+        return id != 0 &&
                 extraditionRepository.findAll().stream().anyMatch(extradition -> extradition.getId().equals(id));
     }
 }

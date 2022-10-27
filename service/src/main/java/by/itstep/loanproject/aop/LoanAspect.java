@@ -49,7 +49,7 @@ public class LoanAspect {
     public void beforeSaveMethod(JoinPoint joinPoint) {
         Logger logger = getLogger(joinPoint.getTarget().getClass());
         LoanDto loanDto = getLoanDto(joinPoint, "save");
-        logger.info("Сохранение кредита с ID: {}", loanDto.getId());
+        logger.info("Сохранение кредита с наименованием: {}", loanDto.getName());
         if (!isLoanDtoCorrect(loanDto)) {
             logger.error("Entity is not correct");
             throw new EntityIsNotCorrectException();
@@ -83,16 +83,15 @@ public class LoanAspect {
     }
 
     private boolean isLoanDtoCorrect(LoanDto loanDto) {
-        return loanDto.getId() >= 1 &&
-                loanDto.getName().length() >= 1 &&
+        return loanDto.getName().length() >= 1 &&
                 loanDto.getLoanPurpose() != null &&
                 loanDto.getInterestRate() != 0 &&
                 loanDto.getMaxSum() != 0 &&
-                loanDto.getTermInMonths() >= 1;
+                loanDto.getTermInMonths() != 0;
     }
 
     private boolean isIdCorrect(Long id) {
-        return id >= 1 &&
+        return id != 0 &&
                 loanRepository.findAll().stream().anyMatch(loan -> loan.getId().equals(id));
     }
 }

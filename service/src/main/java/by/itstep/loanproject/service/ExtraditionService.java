@@ -3,6 +3,7 @@ package by.itstep.loanproject.service;
 import by.itstep.loanproject.dao.entity.Extradition;
 import by.itstep.loanproject.dao.repository.ExtraditionRepository;
 import by.itstep.loanproject.dto.ExtraditionDto;
+import by.itstep.loanproject.dto.ExtraditionDtoWithId;
 import by.itstep.loanproject.mapper.ExtraditionMapper;
 import org.decimal4j.util.DoubleRounder;
 import org.springframework.context.annotation.Scope;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Service for the {@link Extradition} and {@link ExtraditionDto}
+ * Service for the {@link Extradition}, {@link ExtraditionDto} and {@link ExtraditionDtoWithId}
  *
  * @author Yauheni Harbuzau
  * @see PersonService
@@ -45,9 +46,9 @@ public class ExtraditionService implements AbstractService<Extradition> {
      *
      * @return List<ExtraditionDto>
      */
-    public List<ExtraditionDto> findAll() {
+    public List<ExtraditionDtoWithId> findAll() {
         return extraditionRepository.findAll().stream()
-                .map(extradition -> extraditionMapper.extraditionToExtraditionDto(extradition))
+                .map(extradition -> extraditionMapper.toExtraditionDtoWithId(extradition))
                 .collect(Collectors.toList());
     }
 
@@ -57,9 +58,9 @@ public class ExtraditionService implements AbstractService<Extradition> {
      * @param id for Extradition
      * @return ExtraditionDto
      */
-    public ExtraditionDto findById(Long id) {
+    public ExtraditionDtoWithId findById(Long id) {
         Extradition extradition = extraditionRepository.findById(id).orElseThrow();
-        return extraditionMapper.extraditionToExtraditionDto(extradition);
+        return extraditionMapper.toExtraditionDtoWithId(extradition);
     }
 
     /**
@@ -68,24 +69,22 @@ public class ExtraditionService implements AbstractService<Extradition> {
      * @param extraditionDto ExtraditionDto
      */
     public void save(ExtraditionDto extraditionDto) {
-        extraditionRepository.save(extraditionMapper.extraditionDtoToExtradition(extraditionDto));
+        extraditionRepository.save(extraditionMapper.toExtradition(extraditionDto));
     }
 
     /**
      * Method for saving single Extradition by Person ID and Loan ID
      *
-     * @param id        for Extradition
      * @param personId  for Person
      * @param loanId    for Loan
      * @param issueDate date of Extradition, object of class LocalDate
      */
-    public void saveWithParam(Long id, Long personId, Long loanId, LocalDate issueDate) {
+    public void saveWithParam(Long personId, Long loanId, LocalDate issueDate) {
         ExtraditionDto extraditionDto = new ExtraditionDto();
-        extraditionDto.setId(id);
         extraditionDto.setPersonDto(personService.findById(personId));
         extraditionDto.setLoanDto(loanService.findById(loanId));
         extraditionDto.setIssueDate(issueDate);
-        extraditionRepository.save(extraditionMapper.extraditionDtoToExtradition(extraditionDto));
+        extraditionRepository.save(extraditionMapper.toExtradition(extraditionDto));
     }
 
     /**
@@ -104,8 +103,10 @@ public class ExtraditionService implements AbstractService<Extradition> {
      * @return boolean true if YearIncome more than MaxSum
      */
     public boolean isGiveLoan(Long id) {
-        ExtraditionDto extraditionDto = findById(id);
-        return extraditionDto.getPersonDto().getYearIncome() > extraditionDto.getLoanDto().getMaxSum();
+        ExtraditionDtoWithId extraditionDtoWithId = findById(id);
+        return extraditionDtoWithId.getPersonDtoWithId().getYearIncome() / 12 >
+                extraditionDtoWithId.getLoanDtoWithId().getMaxSum() /
+                        extraditionDtoWithId.getLoanDtoWithId().getTermInMonths();
     }
 
     /**
@@ -115,10 +116,10 @@ public class ExtraditionService implements AbstractService<Extradition> {
      * @return monthly payment
      */
     public double getMonthlyPayment(Long id) {
-        ExtraditionDto extraditionDto = findById(id);
-        double maxSum = extraditionDto.getLoanDto().getMaxSum();
-        double interestRate = extraditionDto.getLoanDto().getInterestRate();
-        int termInMonths = extraditionDto.getLoanDto().getTermInMonths();
+        ExtraditionDtoWithId extraditionDtoWithId = findById(id);
+        double maxSum = extraditionDtoWithId.getLoanDtoWithId().getMaxSum();
+        double interestRate = extraditionDtoWithId.getLoanDtoWithId().getInterestRate();
+        int termInMonths = extraditionDtoWithId.getLoanDtoWithId().getTermInMonths();
         double monthlyRate = interestRate / 12; // Ставка по кредиту в месяц
         double annuityRatio = // Коэффициент аннуитета
                 (Math.pow(1 + monthlyRate, termInMonths) * monthlyRate) /
@@ -133,7 +134,7 @@ public class ExtraditionService implements AbstractService<Extradition> {
      * @return full payment
      */
     public double getFullPayment(Long id) {
-        ExtraditionDto extraditionDto = findById(id);
-        return getMonthlyPayment(id) * extraditionDto.getLoanDto().getTermInMonths();
+        ExtraditionDtoWithId extraditionDtoWithId = findById(id);
+        return getMonthlyPayment(id) * extraditionDtoWithId.getLoanDtoWithId().getTermInMonths();
     }
 }

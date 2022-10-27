@@ -2,10 +2,11 @@ package by.itstep.loanproject.mapper;
 
 import by.itstep.loanproject.dao.entity.Extradition;
 import by.itstep.loanproject.dto.ExtraditionDto;
+import by.itstep.loanproject.dto.ExtraditionDtoWithId;
 import org.springframework.stereotype.Component;
 
 /**
- * Mapper for the {@link Extradition} and {@link ExtraditionDto}
+ * Mapper for the {@link Extradition}, {@link ExtraditionDto} and {@link ExtraditionDtoWithId}
  *
  * @author Yauheni Harbuzau
  * @see PersonMapper
@@ -22,27 +23,26 @@ public class ExtraditionMapper {
         this.loanMapper = loanMapper;
     }
 
-    public Extradition extraditionDtoToExtradition(ExtraditionDto extraditionDto) {
+    public Extradition toExtradition(ExtraditionDto extraditionDto) {
         if (extraditionDto == null) {
             return null;
         }
         Extradition extradition = new Extradition();
-        extradition.setId(extraditionDto.getId());
-        extradition.setPerson(personMapper.personDtoToPerson(extraditionDto.getPersonDto()));
-        extradition.setLoan(loanMapper.loanDtoToLoan(extraditionDto.getLoanDto()));
+        extradition.setPerson(personMapper.toPerson(extraditionDto.getPersonDto()));
+        extradition.setLoan(loanMapper.toLoan(extraditionDto.getLoanDto()));
         extradition.setIssueDate(extraditionDto.getIssueDate());
         return extradition;
     }
 
-    public ExtraditionDto extraditionToExtraditionDto(Extradition extradition) {
+    public ExtraditionDtoWithId toExtraditionDtoWithId(Extradition extradition) {
         if (extradition == null) {
             return null;
         }
-        ExtraditionDto extraditionDto = new ExtraditionDto();
-        extraditionDto.setId(extradition.getId());
-        extraditionDto.setPersonDto(personMapper.personToPersonDto(extradition.getPerson()));
-        extraditionDto.setLoanDto(loanMapper.loanToLoanDto(extradition.getLoan()));
-        extraditionDto.setIssueDate(extradition.getIssueDate());
-        return extraditionDto;
+        ExtraditionDtoWithId extraditionDtoWithId = new ExtraditionDtoWithId();
+        extraditionDtoWithId.setId(extradition.getId());
+        extraditionDtoWithId.setPersonDtoWithId(personMapper.toPersonDtoWithId(extradition.getPerson()));
+        extraditionDtoWithId.setLoanDtoWithId(loanMapper.toLoanDtoWithId(extradition.getLoan()));
+        extraditionDtoWithId.setIssueDate(extradition.getIssueDate());
+        return extraditionDtoWithId;
     }
 }

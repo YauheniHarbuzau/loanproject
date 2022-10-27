@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @Data
 public class PersonDto implements Serializable {
 
-    private Long id; // ID
     private String name; // Имя
     private String lastName; // Фамилия
     private LocalDate birthDate; // Дата рождения
