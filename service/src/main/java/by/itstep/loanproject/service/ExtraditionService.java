@@ -137,4 +137,15 @@ public class ExtraditionService implements AbstractService<Extradition> {
         ExtraditionDtoWithId extraditionDtoWithId = findById(id);
         return getMonthlyPayment(id) * extraditionDtoWithId.getLoanDtoWithId().getTermInMonths();
     }
+
+    /**
+     * Method for calculation remaining payment
+     *
+     * @param id         for Extradition
+     * @param monthsPaid for number of months paid
+     * @return remaining payment
+     */
+    public double getRemainingPayment(Long id, Short monthsPaid) {
+        return DoubleRounder.round(getFullPayment(id) - getMonthlyPayment(id) * monthsPaid, 2);
+    }
 }

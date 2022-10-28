@@ -82,4 +82,12 @@ class ExtraditionServiceTest {
         assertNotEquals(2000.51, extraditionService.getFullPayment(1L));
         assertNotEquals(2000.53, extraditionService.getFullPayment(1L));
     }
+
+    @Test
+    @DisplayName("Test getRemainingPayment method")
+    public void getRemainingPaymentTest() {
+        assertEquals(1500.39, extraditionService.getRemainingPayment(1L, (short) 3));
+        assertEquals(1166.97, extraditionService.getRemainingPayment(1L, (short) 5));
+        assertNotEquals(1166.99, extraditionService.getRemainingPayment(1L, (short) 5));
+    }
 }

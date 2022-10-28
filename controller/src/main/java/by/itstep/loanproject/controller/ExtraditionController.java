@@ -80,4 +80,10 @@ public class ExtraditionController {
     double getFullPayment(@PathVariable("id") Long id) {
         return extraditionService.getFullPayment(id);
     }
+
+    @GetMapping("/extradition/getRemainingPayment")
+    @Operation(summary = "Get remaining payment", description = "Get remaining payment by extradition ID and by number of months paid")
+    double getRemainingPayment(@RequestParam Long id, @RequestParam Short monthsPaid) {
+        return extraditionService.getRemainingPayment(id, monthsPaid);
+    }
 }

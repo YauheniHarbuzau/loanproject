@@ -25,7 +25,8 @@ Build tool Maven.</br>
 Application entry point - ***TestApplication*** class in ***APP*** module.
 
 Implemented saving, receiving, deleting customers and loans, drawing up loan agreements,</br>
-calculating the amount of the monthly payment, the full amount of the payment,</br>
+calculating the amount of the monthly payment, the full amount of payment,</br>
+the amount of the remaining payment,</br>
 prohibiting the issuance of a loan with a low annual income of the customer.
 
 The project implements entities for customers ***Person***, loans ***Loan***,</br>

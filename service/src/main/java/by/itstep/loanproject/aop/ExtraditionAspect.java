@@ -106,6 +106,17 @@ public class ExtraditionAspect {
         }
     }
 
+    @Before("execution(* by.itstep.loanproject.service.ExtraditionService.getRemainingPayment(..))")
+    public void beforeGetRemainingPayment(JoinPoint joinPoint) {
+        Logger logger = getLogger(joinPoint.getTarget().getClass());
+        Long id = IdForAspect.getId(joinPoint, "getRemainingPayment");
+        logger.info("Get remaining payment by extradition ID and by number of months paid");
+        if (!isIdCorrect(id)) {
+            logger.error("ID is not correct or ID is not found");
+            throw new IdIsNotCorrectException();
+        }
+    }
+
     //--------------------------------------------------------------------------------------------------------------
 
     private ExtraditionDto getExtraditionDto(JoinPoint joinPoint, String signatureName) {
