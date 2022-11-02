@@ -5,6 +5,7 @@ import by.itstep.loanproject.dao.repository.PersonRepository;
 import by.itstep.loanproject.dto.PersonDto;
 import by.itstep.loanproject.dto.PersonDtoWithId;
 import by.itstep.loanproject.mapper.PersonMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -16,17 +17,13 @@ import java.util.stream.Collectors;
  *
  * @author Yauheni Harbuzau
  */
+@AllArgsConstructor
 @Service
 @Scope("singleton")
 public class PersonService implements AbstractService<Person> {
 
-    private PersonRepository personRepository;
-    private PersonMapper personMapper;
-
-    public PersonService(PersonRepository personRepository, PersonMapper personMapper) {
-        this.personRepository = personRepository;
-        this.personMapper = personMapper;
-    }
+    private final PersonRepository personRepository;
+    private final PersonMapper personMapper;
 
     /**
      * Method for finding all Persons

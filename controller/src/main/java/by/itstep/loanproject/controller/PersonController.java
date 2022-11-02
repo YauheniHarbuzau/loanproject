@@ -5,6 +5,7 @@ import by.itstep.loanproject.dto.PersonDtoWithId;
 import by.itstep.loanproject.service.PersonService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,38 +21,35 @@ import java.util.List;
  *
  * @author Yauheni Harbuzau
  */
+@AllArgsConstructor
 @RestController
 @RequestMapping("/itstep")
 @Tag(name = "Person manager", description = "Search, save and delete persons")
 public class PersonController {
 
-    private PersonService personService;
+    private final PersonService personService;
 
-    public PersonController(PersonService personService) {
-        this.personService = personService;
-    }
-
-    @GetMapping("/person/findAll")
+    @GetMapping("/persons")
     @Operation(summary = "Get persons", description = "Get all persons")
-    List<PersonDtoWithId> findAll() {
+    public List<PersonDtoWithId> findAll() {
         return personService.findAll();
     }
 
-    @GetMapping("/person/findById/{id}")
+    @GetMapping("/persons/{id}")
     @Operation(summary = "Get person", description = "Get person by ID")
-    PersonDtoWithId findById(@PathVariable("id") Long id) {
+    public PersonDtoWithId findById(@PathVariable("id") Long id) {
         return personService.findById(id);
     }
 
-    @PostMapping("/person/save")
+    @PostMapping("/persons")
     @Operation(summary = "Save", description = "Save person")
-    void save(@RequestBody PersonDto personDto) {
+    public void save(@RequestBody PersonDto personDto) {
         personService.save(personDto);
     }
 
-    @DeleteMapping("/person/deleteById/{id}")
+    @DeleteMapping("/persons/{id}")
     @Operation(summary = "Delete", description = "Delete person by ID")
-    void deleteById(@PathVariable("id") Long id) {
+    public void deleteById(@PathVariable("id") Long id) {
         personService.deleteById(id);
     }
 }

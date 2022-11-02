@@ -14,9 +14,9 @@ import java.time.LocalDate;
 @Data
 public class PersonDto implements Serializable {
 
-    private String name; // Имя
-    private String lastName; // Фамилия
-    private LocalDate birthDate; // Дата рождения
-    private Double yearIncome; // Годовой доход
-    private String passport; // Паспортные данные
+    private String name;
+    private String lastName;
+    private LocalDate birthDate;
+    private Double yearIncome;
+    private String passport;
 }

@@ -22,7 +22,7 @@ import static org.apache.logging.log4j.LogManager.getLogger;
 @Aspect
 public class LoanAspect {
 
-    private LoanRepository loanRepository;
+    private final LoanRepository loanRepository;
 
     public LoanAspect(LoanRepository loanRepository) {
         this.loanRepository = loanRepository;

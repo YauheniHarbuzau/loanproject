@@ -16,9 +16,5 @@ public interface PersonMapper {
 
     Person toPerson(PersonDto personDto);
 
-    Person toPerson(PersonDtoWithId personDtoWithId);
-
-    PersonDto toPersonDto(Person person);
-
     PersonDtoWithId toPersonDtoWithId(Person person);
 }

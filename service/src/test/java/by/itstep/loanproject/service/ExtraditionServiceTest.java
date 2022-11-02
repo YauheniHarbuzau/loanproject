@@ -37,10 +37,10 @@ class ExtraditionServiceTest {
     @InjectMocks
     private ExtraditionService extraditionService;
 
-    private static PersonDtoWithId personDtoWithId = new PersonDtoWithId();
-    private static LoanDtoWithId loanDtoWithId = new LoanDtoWithId();
-    private static Extradition extradition = new Extradition();
-    private static ExtraditionDtoWithId extraditionDtoWithId = new ExtraditionDtoWithId();
+    private static final PersonDtoWithId personDtoWithId = new PersonDtoWithId();
+    private static final LoanDtoWithId loanDtoWithId = new LoanDtoWithId();
+    private static final Extradition extradition = new Extradition();
+    private static final ExtraditionDtoWithId extraditionDtoWithId = new ExtraditionDtoWithId();
 
     @BeforeEach
     public void setup() {

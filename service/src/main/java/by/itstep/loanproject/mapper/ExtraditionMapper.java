@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExtraditionMapper {
 
-    private PersonMapper personMapper;
-    private LoanMapper loanMapper;
+    private final PersonMapper personMapper;
+    private final LoanMapper loanMapper;
 
     public ExtraditionMapper(PersonMapper personMapper, LoanMapper loanMapper) {
         this.personMapper = personMapper;

@@ -22,7 +22,7 @@ import static org.apache.logging.log4j.LogManager.getLogger;
 @Aspect
 public class PersonAspect {
 
-    private PersonRepository personRepository;
+    private final PersonRepository personRepository;
 
     public PersonAspect(PersonRepository personRepository) {
         this.personRepository = personRepository;

@@ -14,9 +14,9 @@ import java.io.Serializable;
 @Data
 public class LoanDto implements Serializable {
 
-    private String name; // Наименование
-    private LoanPurpose loanPurpose; // Цель кредита
-    private Double interestRate; // Процентная ставка
-    private Double maxSum; // Максимальная сумма
-    private Integer termInMonths; // Срок в месяцах
+    private String name;
+    private LoanPurpose loanPurpose;
+    private Double interestRate;
+    private Double maxSum;
+    private Integer termInMonths;
 }

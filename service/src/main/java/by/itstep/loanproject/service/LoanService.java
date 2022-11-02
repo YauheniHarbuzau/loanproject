@@ -5,6 +5,7 @@ import by.itstep.loanproject.dao.repository.LoanRepository;
 import by.itstep.loanproject.dto.LoanDto;
 import by.itstep.loanproject.dto.LoanDtoWithId;
 import by.itstep.loanproject.mapper.LoanMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -16,17 +17,13 @@ import java.util.stream.Collectors;
  *
  * @author Yauheni Harbuzau
  */
+@AllArgsConstructor
 @Service
 @Scope("singleton")
 public class LoanService implements AbstractService<Loan> {
 
-    private LoanRepository loanRepository;
-    private LoanMapper loanMapper;
-
-    public LoanService(LoanRepository loanRepository, LoanMapper loanMapper) {
-        this.loanRepository = loanRepository;
-        this.loanMapper = loanMapper;
-    }
+    private final LoanRepository loanRepository;
+    private final LoanMapper loanMapper;
 
     /**
      * Method for finding all Loans

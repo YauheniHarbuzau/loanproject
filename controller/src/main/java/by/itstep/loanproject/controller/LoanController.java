@@ -5,6 +5,7 @@ import by.itstep.loanproject.dto.LoanDtoWithId;
 import by.itstep.loanproject.service.LoanService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,38 +21,35 @@ import java.util.List;
  *
  * @author Yauheni Harbuzau
  */
+@AllArgsConstructor
 @RestController
 @RequestMapping("/itstep")
 @Tag(name = "Loan manager", description = "Search, save and delete loans")
 public class LoanController {
 
-    private LoanService loanService;
+    private final LoanService loanService;
 
-    public LoanController(LoanService loanService) {
-        this.loanService = loanService;
-    }
-
-    @GetMapping("/loan/findAll")
+    @GetMapping("/loans")
     @Operation(summary = "Get loans", description = "Get all loans")
-    List<LoanDtoWithId> findAll() {
+    public List<LoanDtoWithId> findAll() {
         return loanService.findAll();
     }
 
-    @GetMapping("/loan/findById/{id}")
+    @GetMapping("/loans/{id}")
     @Operation(summary = "Get loan", description = "Get loan by ID")
-    LoanDtoWithId findById(@PathVariable("id") Long id) {
+    public LoanDtoWithId findById(@PathVariable("id") Long id) {
         return loanService.findById(id);
     }
 
-    @PostMapping("/loan/save")
+    @PostMapping("/loans")
     @Operation(summary = "Save", description = "Save loan")
-    void save(@RequestBody LoanDto loanDto) {
+    public void save(@RequestBody LoanDto loanDto) {
         loanService.save(loanDto);
     }
 
-    @DeleteMapping("/loan/deleteById/{id}")
+    @DeleteMapping("/loans/{id}")
     @Operation(summary = "Delete", description = "Delete loan by ID")
-    void deleteById(@PathVariable("id") Long id) {
+    public void deleteById(@PathVariable("id") Long id) {
         loanService.deleteById(id);
     }
 }

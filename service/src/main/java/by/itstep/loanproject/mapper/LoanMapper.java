@@ -15,9 +15,5 @@ public interface LoanMapper {
 
     Loan toLoan(LoanDto loanDto);
 
-    Loan toLoan(LoanDtoWithId loanDtoWithId);
-
-    LoanDto toLoanDto(Loan loan);
-
     LoanDtoWithId toLoanDtoWithId(Loan loan);
 }

@@ -22,7 +22,7 @@ import static org.apache.logging.log4j.LogManager.getLogger;
 @Aspect
 public class ExtraditionAspect {
 
-    private ExtraditionRepository extraditionRepository;
+    private final ExtraditionRepository extraditionRepository;
 
     public ExtraditionAspect(ExtraditionRepository extraditionRepository) {
         this.extraditionRepository = extraditionRepository;

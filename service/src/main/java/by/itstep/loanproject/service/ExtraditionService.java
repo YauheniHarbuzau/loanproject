@@ -5,6 +5,7 @@ import by.itstep.loanproject.dao.repository.ExtraditionRepository;
 import by.itstep.loanproject.dto.ExtraditionDto;
 import by.itstep.loanproject.dto.ExtraditionDtoWithId;
 import by.itstep.loanproject.mapper.ExtraditionMapper;
+import lombok.AllArgsConstructor;
 import org.decimal4j.util.DoubleRounder;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -20,26 +21,15 @@ import java.util.stream.Collectors;
  * @see PersonService
  * @see LoanService
  */
+@AllArgsConstructor
 @Service
 @Scope("singleton")
 public class ExtraditionService implements AbstractService<Extradition> {
 
-    private ExtraditionRepository extraditionRepository;
-    private PersonService personService;
-    private LoanService loanService;
-    private ExtraditionMapper extraditionMapper;
-
-    public ExtraditionService(
-            ExtraditionRepository extraditionRepository,
-            PersonService personService,
-            LoanService loanService,
-            ExtraditionMapper extraditionMapper
-    ) {
-        this.extraditionRepository = extraditionRepository;
-        this.personService = personService;
-        this.loanService = loanService;
-        this.extraditionMapper = extraditionMapper;
-    }
+    private final ExtraditionRepository extraditionRepository;
+    private final PersonService personService;
+    private final LoanService loanService;
+    private final ExtraditionMapper extraditionMapper;
 
     /**
      * Method for finding all Extraditions
@@ -117,11 +107,11 @@ public class ExtraditionService implements AbstractService<Extradition> {
      */
     public double getMonthlyPayment(Long id) {
         ExtraditionDtoWithId extraditionDtoWithId = findById(id);
-        double maxSum = extraditionDtoWithId.getLoanDtoWithId().getMaxSum();
-        double interestRate = extraditionDtoWithId.getLoanDtoWithId().getInterestRate();
-        int termInMonths = extraditionDtoWithId.getLoanDtoWithId().getTermInMonths();
-        double monthlyRate = interestRate / 12; // Ставка по кредиту в месяц
-        double annuityRatio = // Коэффициент аннуитета
+        var maxSum = extraditionDtoWithId.getLoanDtoWithId().getMaxSum();
+        var interestRate = extraditionDtoWithId.getLoanDtoWithId().getInterestRate();
+        var termInMonths = extraditionDtoWithId.getLoanDtoWithId().getTermInMonths();
+        var monthlyRate = interestRate / 12; // Ставка по кредиту в месяц
+        var annuityRatio = // Коэффициент аннуитета
                 (Math.pow(1 + monthlyRate, termInMonths) * monthlyRate) /
                         (Math.pow(1 + monthlyRate, termInMonths) - 1);
         return DoubleRounder.round(maxSum / termInMonths * annuityRatio, 2);
