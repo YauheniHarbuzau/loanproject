@@ -92,7 +92,6 @@ public class PersonAspect {
     }
 
     private boolean isIdCorrect(Long id) {
-        return id != 0 &&
-                personRepository.findAll().stream().anyMatch(person -> person.getId().equals(id));
+        return id != 0 && personRepository.findAll().stream().anyMatch(person -> person.getId().equals(id));
     }
 }

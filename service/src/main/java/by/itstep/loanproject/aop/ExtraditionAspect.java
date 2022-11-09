@@ -139,7 +139,6 @@ public class ExtraditionAspect {
     }
 
     private boolean isIdCorrect(Long id) {
-        return id != 0 &&
-                extraditionRepository.findAll().stream().anyMatch(extradition -> extradition.getId().equals(id));
+        return id != 0 && extraditionRepository.findAll().stream().anyMatch(extradition -> extradition.getId().equals(id));
     }
 }

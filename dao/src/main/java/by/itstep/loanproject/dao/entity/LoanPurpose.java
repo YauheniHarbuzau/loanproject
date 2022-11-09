@@ -7,9 +7,12 @@ package by.itstep.loanproject.dao.entity;
  */
 public enum LoanPurpose {
 
-    CONSUMER("CONSUMER"), // Потребительский
-    CAR_LOAN("CAR_LOAN"), // Автокредит
-    MORTGAGE("MORTGAGE"); // Ипотека
+    /**
+     * Purpose type, RU: Потребительский, Автокредит, Ипотека
+     */
+    CONSUMER("CONSUMER"),
+    CAR_LOAN("CAR_LOAN"),
+    MORTGAGE("MORTGAGE");
 
     private final String type;
 

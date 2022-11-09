@@ -24,14 +24,17 @@ import javax.persistence.Table;
 @Table(name = "passport")
 public class Passport {
 
+    /**
+     * Fields, RU: ID, Серия, Номер
+     */
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // ID
+    private Long id;
 
     @Column(name = "series")
-    private String series; // серия
+    private String series;
 
     @Column(name = "number")
-    private String number; // номер
+    private String number;
 }

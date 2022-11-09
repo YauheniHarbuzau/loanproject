@@ -91,7 +91,6 @@ public class LoanAspect {
     }
 
     private boolean isIdCorrect(Long id) {
-        return id != 0 &&
-                loanRepository.findAll().stream().anyMatch(loan -> loan.getId().equals(id));
+        return id != 0 && loanRepository.findAll().stream().anyMatch(loan -> loan.getId().equals(id));
     }
 }

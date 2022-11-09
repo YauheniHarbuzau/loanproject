@@ -31,9 +31,7 @@ public class PersonService implements AbstractService<Person> {
      * @return List<PersonDto>
      */
     public List<PersonDtoWithId> findAll() {
-        return personRepository.findAll().stream()
-                .map(person -> personMapper.toPersonDtoWithId(person))
-                .collect(Collectors.toList());
+        return personRepository.findAll().stream().map(personMapper::toPersonDtoWithId).collect(Collectors.toList());
     }
 
     /**

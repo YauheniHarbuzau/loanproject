@@ -29,6 +29,9 @@ import java.time.LocalDate;
 @Table(name = "extradition")
 public class Extradition {
 
+    /**
+     * Fields, RU: ID, Клиент, Кредит, Дата выдачи
+     */
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

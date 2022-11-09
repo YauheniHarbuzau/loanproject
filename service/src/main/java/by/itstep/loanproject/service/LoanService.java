@@ -31,9 +31,7 @@ public class LoanService implements AbstractService<Loan> {
      * @return List<LoanDto>
      */
     public List<LoanDtoWithId> findAll() {
-        return loanRepository.findAll().stream()
-                .map(loan -> loanMapper.toLoanDtoWithId(loan))
-                .collect(Collectors.toList());
+        return loanRepository.findAll().stream().map(loanMapper::toLoanDtoWithId).collect(Collectors.toList());
     }
 
     /**
