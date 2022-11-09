@@ -10,6 +10,7 @@ import java.time.LocalDate;
  * DTO for the {@link Person} entity
  *
  * @author Yauheni Harbuzau
+ * @see PassportDto
  */
 @Data
 public class PersonDto implements Serializable {
@@ -18,5 +19,5 @@ public class PersonDto implements Serializable {
     private String lastName;
     private LocalDate birthDate;
     private Double yearIncome;
-    private String passport;
+    private PassportDto passportDto;
 }

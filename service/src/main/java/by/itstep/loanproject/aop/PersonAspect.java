@@ -87,7 +87,8 @@ public class PersonAspect {
                 personDto.getLastName().length() >= 1 &&
                 personDto.getBirthDate() != null &&
                 personDto.getYearIncome() != 0 &&
-                personDto.getPassport() != null;
+                personDto.getPassportDto().getSeries().length() == 2 &&
+                personDto.getPassportDto().getNumber().length() == 7;
     }
 
     private boolean isIdCorrect(Long id) {

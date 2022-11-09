@@ -1,6 +1,7 @@
 package by.itstep.loanproject.dto;
 
 import by.itstep.loanproject.dao.entity.Loan;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 
 /**
@@ -10,6 +11,7 @@ import lombok.Data;
  * @see LoanDto
  */
 @Data
+@JsonPropertyOrder({"id", "name", "loanPurpose", "interestRate", "maxSum", "termInMonth"})
 public class LoanDtoWithId extends LoanDto {
 
     private Long id;
