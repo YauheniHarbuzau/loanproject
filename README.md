@@ -16,7 +16,7 @@ Project structure:
     - Mapper
     - Service
     - AOP
-- Controller
+- Controller module
 
 ***
 

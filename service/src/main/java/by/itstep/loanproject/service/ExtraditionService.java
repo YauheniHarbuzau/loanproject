@@ -34,7 +34,7 @@ public class ExtraditionService implements AbstractService<Extradition> {
     /**
      * Method for finding all Extraditions
      *
-     * @return List<ExtraditionDto>
+     * @return List<ExtraditionDtoWithId>
      */
     public List<ExtraditionDtoWithId> findAll() {
         return extraditionRepository.findAll().stream().map(extraditionMapper::toExtraditionDtoWithId).collect(Collectors.toList());
@@ -44,7 +44,7 @@ public class ExtraditionService implements AbstractService<Extradition> {
      * Method for finding single Extradition by ID
      *
      * @param id for Extradition
-     * @return ExtraditionDto
+     * @return ExtraditionDtoWithId
      */
     public ExtraditionDtoWithId findById(Long id) {
         Extradition extradition = extraditionRepository.findById(id).orElseThrow();

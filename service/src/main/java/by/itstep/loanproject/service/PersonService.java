@@ -28,7 +28,7 @@ public class PersonService implements AbstractService<Person> {
     /**
      * Method for finding all Persons
      *
-     * @return List<PersonDto>
+     * @return List<PersonDtoWithId>
      */
     public List<PersonDtoWithId> findAll() {
         return personRepository.findAll().stream().map(personMapper::toPersonDtoWithId).collect(Collectors.toList());
@@ -38,7 +38,7 @@ public class PersonService implements AbstractService<Person> {
      * Method for finding single Person by ID
      *
      * @param id for Person
-     * @return PersonDto
+     * @return PersonDtoWithId
      */
     public PersonDtoWithId findById(Long id) {
         Person person = personRepository.findById(id).orElseThrow();

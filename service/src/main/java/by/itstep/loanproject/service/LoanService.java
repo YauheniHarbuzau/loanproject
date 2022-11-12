@@ -28,7 +28,7 @@ public class LoanService implements AbstractService<Loan> {
     /**
      * Method for finding all Loans
      *
-     * @return List<LoanDto>
+     * @return List<LoanDtoWithId>
      */
     public List<LoanDtoWithId> findAll() {
         return loanRepository.findAll().stream().map(loanMapper::toLoanDtoWithId).collect(Collectors.toList());
@@ -38,7 +38,7 @@ public class LoanService implements AbstractService<Loan> {
      * Method for finding single Loan by ID
      *
      * @param id for Loan
-     * @return LoanDto
+     * @return LoanDtoWithId
      */
     public LoanDtoWithId findById(Long id) {
         Loan loan = loanRepository.findById(id).orElseThrow();
